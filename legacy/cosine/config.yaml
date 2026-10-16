@@ -1,0 +1,83 @@
+# ── Model ──
+models:
+  160m:
+    name: EleutherAI/pythia-160m-deduped
+    d_model: 768
+    num_layers: 12
+    num_heads: 12
+    head_dim: 64
+    ffn_dim: 3072
+  410m:
+    name: EleutherAI/pythia-410m-deduped
+    d_model: 1024
+    num_layers: 24
+    num_heads: 16
+    head_dim: 64
+    ffn_dim: 4096
+  1.4b:
+    name: EleutherAI/pythia-1.4b-deduped
+    d_model: 2048
+    num_layers: 24
+    num_heads: 16
+    head_dim: 128
+    ffn_dim: 8192
+
+target_suffixes:
+  - attention.query_key_value
+  - attention.dense
+  - mlp.dense_h_to_4h
+  - mlp.dense_4h_to_h
+
+pipeline:
+  scales: [160m, 410m, 1.4b]
+  device: cuda
+  seed: 42
+  output_dir: ./results
+  artifacts_dir: ./artifacts
+  force: false
+
+# ── E1: Longitudinal spectral tracking ──
+e1:
+  checkpoint_interval: 10000
+  max_checkpoints: 20
+  z_permutations: 100
+  svd_top_k: 32
+
+# ── E2: Truncation baselines ──
+e2:
+  rank_fractions: [1.0, 0.90, 0.80, 0.70, 0.60, 0.50]
+  svdllm_calibration_batches: 40
+
+# ── Phase 3-5: Old-paper cosine pipeline ──
+phase3:
+  strengths: [10.0, 20.0, 50.0]
+  k_fraction: 0.5
+  steps: 10000
+  eval_every: 500
+  lr:
+    160m: 1.0e-5
+    410m: 1.0e-5
+    1.4b: 5.0e-5
+  baseline_lr:
+    160m: 1.0e-5
+    410m: 1.0e-5
+    1.4b: 5.0e-5
+  grad_accum: 4
+  weight_decay: 0.01
+  train_samples: 50000
+
+phase4:
+  rank_fractions: [1.0, 0.90, 0.80, 0.70, 0.60, 0.50]
+
+phase5:
+  tasks: [hellaswag, arc_easy, piqa]
+  num_fewshot: 0
+  trunc_rank_fraction: 0.70
+
+# ── Shared eval ──
+eval:
+  train_samples: 50000
+  eval_samples: 200
+  max_seq_length: 512
+  batch_size: 2
+  max_eval_batches: 40

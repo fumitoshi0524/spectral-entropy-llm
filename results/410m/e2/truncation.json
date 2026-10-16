@@ -1,0 +1,80 @@
+{
+  "scale": "410m",
+  "dense_ppl": 21.26179428639459,
+  "naive": [
+    {
+      "rank": 1024,
+      "fraction": 1.0,
+      "ppl": 21.26,
+      "ratio": 1.0
+    },
+    {
+      "rank": 921,
+      "fraction": 0.9,
+      "ppl": 83.28,
+      "ratio": 3.92
+    },
+    {
+      "rank": 819,
+      "fraction": 0.8,
+      "ppl": 497.01,
+      "ratio": 23.38
+    },
+    {
+      "rank": 716,
+      "fraction": 0.7,
+      "ppl": 4508.74,
+      "ratio": 212.06
+    },
+    {
+      "rank": 614,
+      "fraction": 0.6,
+      "ppl": 16314.18,
+      "ratio": 767.3
+    },
+    {
+      "rank": 512,
+      "fraction": 0.5,
+      "ppl": 41182.26,
+      "ratio": 1936.91
+    }
+  ],
+  "svdllm": [
+    {
+      "rank": 1024,
+      "fraction": 1.0,
+      "ppl": 21.26,
+      "ratio": 1.0
+    },
+    {
+      "rank": 921,
+      "fraction": 0.9,
+      "ppl": 38.46,
+      "ratio": 1.81
+    },
+    {
+      "rank": 819,
+      "fraction": 0.8,
+      "ppl": 84.37,
+      "ratio": 3.97
+    },
+    {
+      "rank": 716,
+      "fraction": 0.7,
+      "ppl": 242.35,
+      "ratio": 11.4
+    },
+    {
+      "rank": 614,
+      "fraction": 0.6,
+      "ppl": 694.79,
+      "ratio": 32.68
+    },
+    {
+      "rank": 512,
+      "fraction": 0.5,
+      "ppl": 1641.53,
+      "ratio": 77.21
+    }
+  ]
+}

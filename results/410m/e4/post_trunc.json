@@ -1,0 +1,75 @@
+{
+  "scale": "410m",
+  "results": {
+    "baseline": [
+      {
+        "rank": 1024,
+        "fraction": 1.0,
+        "ppl": 21.26,
+        "ratio": 1.0
+      },
+      {
+        "rank": 921,
+        "fraction": 0.9,
+        "ppl": 83.28,
+        "ratio": 3.92
+      },
+      {
+        "rank": 819,
+        "fraction": 0.8,
+        "ppl": 497.01,
+        "ratio": 23.38
+      },
+      {
+        "rank": 716,
+        "fraction": 0.7,
+        "ppl": 4508.74,
+        "ratio": 212.06
+      },
+      {
+        "rank": 614,
+        "fraction": 0.6,
+        "ppl": 16314.18,
+        "ratio": 767.3
+      },
+      {
+        "rank": 512,
+        "fraction": 0.5,
+        "ppl": 41182.26,
+        "ratio": 1936.91
+      }
+    ],
+    "gamma10.0": [
+      {
+        "rank": 1024,
+        "fraction": 1.0,
+        "ppl": 32.63
+      },
+      {
+        "rank": 921,
+        "fraction": 0.9,
+        "ppl": 33.22
+      },
+      {
+        "rank": 819,
+        "fraction": 0.8,
+        "ppl": 37.56
+      },
+      {
+        "rank": 716,
+        "fraction": 0.7,
+        "ppl": 80.07
+      },
+      {
+        "rank": 614,
+        "fraction": 0.6,
+        "ppl": 1003.23
+      },
+      {
+        "rank": 512,
+        "fraction": 0.5,
+        "ppl": 5985.45
+      }
+    ]
+  }
+}

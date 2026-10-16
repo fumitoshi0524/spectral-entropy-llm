@@ -1,0 +1,75 @@
+{
+  "scale": "1.4b",
+  "results": {
+    "baseline": [
+      {
+        "rank": 2048,
+        "fraction": 1.0,
+        "ppl": 14.35,
+        "ratio": 1.0
+      },
+      {
+        "rank": 1843,
+        "fraction": 0.9,
+        "ppl": 66.51,
+        "ratio": 4.63
+      },
+      {
+        "rank": 1638,
+        "fraction": 0.8,
+        "ppl": 184.06,
+        "ratio": 12.8
+      },
+      {
+        "rank": 1433,
+        "fraction": 0.7,
+        "ppl": 953.6,
+        "ratio": 66.33
+      },
+      {
+        "rank": 1228,
+        "fraction": 0.6,
+        "ppl": 7750.62,
+        "ratio": 539.15
+      },
+      {
+        "rank": 1024,
+        "fraction": 0.5,
+        "ppl": 26228.79,
+        "ratio": 1824.52
+      }
+    ],
+    "gamma10.0": [
+      {
+        "rank": 2048,
+        "fraction": 1.0,
+        "ppl": 19.23
+      },
+      {
+        "rank": 1843,
+        "fraction": 0.9,
+        "ppl": 23.44
+      },
+      {
+        "rank": 1638,
+        "fraction": 0.8,
+        "ppl": 30.16
+      },
+      {
+        "rank": 1433,
+        "fraction": 0.7,
+        "ppl": 65.3
+      },
+      {
+        "rank": 1228,
+        "fraction": 0.6,
+        "ppl": 394.33
+      },
+      {
+        "rank": 1024,
+        "fraction": 0.5,
+        "ppl": 6926.46
+      }
+    ]
+  }
+}

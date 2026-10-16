@@ -1,0 +1,29 @@
+models:
+  160m: {name: EleutherAI/pythia-160m-deduped, d_model: 768, num_layers: 12}
+  410m: {name: EleutherAI/pythia-410m-deduped, d_model: 1024, num_layers: 24}
+  1.4b: {name: EleutherAI/pythia-1.4b-deduped, d_model: 2048, num_layers: 24}
+pipeline:
+  device: cuda
+  seed: 42
+  output_dir: ./runs/metrics
+  artifacts_dir: ./runs/artifacts
+e1: {checkpoint_interval: 10000, max_checkpoints: 20}
+e2:
+  rank_fractions: [1.0, 0.9, 0.8, 0.7, 0.6, 0.5]
+  svdllm_calibration_batches: 40
+e3:
+  iterations: 10000
+  grad_accum: 4
+  eval_every: 500
+  svd_interval: 1000
+  strength: 10.0
+  mu: 1.0
+  topk_fraction: 0.5
+  weight_decay: 0.01
+  lr: {160m: 1.0e-5, 410m: 1.0e-5, 1.4b: 5.0e-5}
+eval:
+  train_samples: 50000
+  eval_samples: 200
+  max_seq_length: 512
+  batch_size: 2
+  max_eval_batches: 40

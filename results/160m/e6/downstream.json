@@ -1,0 +1,97 @@
+{
+  "scale": "160m",
+  "results": {
+    "dense": {
+      "hellaswag": {
+        "sample_len": 10042,
+        "acc,none": 0.2903,
+        "acc_stderr,none": 0.0045,
+        "acc_norm,none": 0.3136,
+        "acc_norm_stderr,none": 0.0046
+      },
+      "arc_easy": {
+        "sample_len": 2376,
+        "acc,none": 0.4419,
+        "acc_stderr,none": 0.0102,
+        "acc_norm,none": 0.3914,
+        "acc_norm_stderr,none": 0.01
+      },
+      "piqa": {
+        "sample_len": 1838,
+        "acc,none": 0.6208,
+        "acc_stderr,none": 0.0113,
+        "acc_norm,none": 0.6208,
+        "acc_norm_stderr,none": 0.0113
+      }
+    },
+    "naive_trunc_r70": {
+      "hellaswag": {
+        "sample_len": 10042,
+        "acc,none": 0.258,
+        "acc_stderr,none": 0.0044,
+        "acc_norm,none": 0.2683,
+        "acc_norm_stderr,none": 0.0044
+      },
+      "arc_easy": {
+        "sample_len": 2376,
+        "acc,none": 0.2761,
+        "acc_stderr,none": 0.0092,
+        "acc_norm,none": 0.2832,
+        "acc_norm_stderr,none": 0.0092
+      },
+      "piqa": {
+        "sample_len": 1838,
+        "acc,none": 0.543,
+        "acc_stderr,none": 0.0116,
+        "acc_norm,none": 0.5365,
+        "acc_norm_stderr,none": 0.0116
+      }
+    },
+    "e3_gamma10.0": {
+      "hellaswag": {
+        "sample_len": 10042,
+        "acc,none": 0.278,
+        "acc_stderr,none": 0.0045,
+        "acc_norm,none": 0.2901,
+        "acc_norm_stderr,none": 0.0045
+      },
+      "arc_easy": {
+        "sample_len": 2376,
+        "acc,none": 0.3969,
+        "acc_stderr,none": 0.01,
+        "acc_norm,none": 0.367,
+        "acc_norm_stderr,none": 0.0099
+      },
+      "piqa": {
+        "sample_len": 1838,
+        "acc,none": 0.6034,
+        "acc_stderr,none": 0.0114,
+        "acc_norm,none": 0.5871,
+        "acc_norm_stderr,none": 0.0115
+      }
+    },
+    "e3_gamma10.0_trunc_r70": {
+      "hellaswag": {
+        "sample_len": 10042,
+        "acc,none": 0.2637,
+        "acc_stderr,none": 0.0044,
+        "acc_norm,none": 0.2755,
+        "acc_norm_stderr,none": 0.0045
+      },
+      "arc_easy": {
+        "sample_len": 2376,
+        "acc,none": 0.3068,
+        "acc_stderr,none": 0.0095,
+        "acc_norm,none": 0.3123,
+        "acc_norm_stderr,none": 0.0095
+      },
+      "piqa": {
+        "sample_len": 1838,
+        "acc,none": 0.5631,
+        "acc_stderr,none": 0.0116,
+        "acc_norm,none": 0.5501,
+        "acc_norm_stderr,none": 0.0116
+      }
+    }
+  }
+}

@@ -1,0 +1,11 @@
+torch>=2.0
+transformers>=4.40
+huggingface_hub>=0.20
+numpy>=1.24
+scipy>=1.10
+tqdm>=4.64
+lm-eval>=0.4
+requests>=2.28
+pyarrow>=14.0
+pandas>=2.0
+pyyaml>=6.0
