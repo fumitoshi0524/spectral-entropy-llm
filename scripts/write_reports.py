@@ -1,9 +1,9 @@
-"""Build bilingual reports using the same archived numbers as the explorer."""
+"""Build bilingual reports from archived measurements."""
 import json
 from pathlib import Path
 
 root=Path(__file__).resolve().parents[1]
-data=json.loads((root/'demo/data.json').read_text(encoding='utf-8'))
+data=json.loads((root/'docs/results-summary.json').read_text(encoding='utf-8'))
 def point(model,name,fraction):return next(x for x in model['curves'][name]['points'] if x['fraction']==fraction)
 def table(headers,rows):return '| '+' | '.join(headers)+' |\n|'+'|'.join(['---']*len(headers))+'|\n'+''.join('| '+' | '.join(map(str,row))+' |\n' for row in rows)
 summary=[];adaptation=[];longitudinal=[];regularizers=[];downstream=[]
@@ -36,7 +36,7 @@ $$
 '''
 english=fr'''# Spectral Entropy for Low-Rank Language-Model Compression
 
-[中文报告](README_zh.md) · [Interactive results](https://fumitoshi0524.github.io/spectral-entropy-llm/?lang=en) · [Archived data](results/) · [Truncation table](docs/truncation.csv)
+[中文报告](README_zh.md) · [Archived data](results/) · [Truncation table](docs/truncation.csv)
 
 ## Abstract
 
@@ -48,7 +48,7 @@ This study examines whether concentrating the singular-value spectrum of pretrai
 
 A low stable rank can coexist with a broad singular-value tail. Consequently, energy concentration alone does not establish that a weight matrix can be truncated without a substantial language-modeling penalty. This project connects longitudinal spectral measurements with an intervention: minimize spectral entropy during adaptation, then measure the quality of rank-truncated weights.
 
-The study contains three components: spectral tracking across public Pythia checkpoints; comparison of entropy and normalized nuclear-norm regularization; and cross-scale truncation with optional alignment to the original model's leading subspace. The [result explorer](https://fumitoshi0524.github.io/spectral-entropy-llm/?lang=en) exposes the recorded points at each model scale and rank budget.
+The study contains three components: spectral tracking across public Pythia checkpoints; comparison of entropy and normalized nuclear-norm regularization; and cross-scale truncation with optional alignment to the original model's leading subspace. The figures and tables below present the measured cross-scale results.
 
 ## 2. Spectral metrics and objective
 
@@ -135,7 +135,7 @@ The current truncation code reconstructs $U_k\Sigma_kV_k^\top$ and writes it int
 
 If a future implementation stores two factors instead, an $m\times n$ weight requires $k(m+n)$ values rather than $mn$. For a square layer at 60% rank, factorization requires approximately **1.2×** its original weight count. Across the four Pythia target matrix shapes, factoring every target at the same $k=0.6d$ would require approximately **80% of their original weight values**, before biases, embeddings, other parameters, or metadata. These are algebraic estimates, not measured model-file reductions.
 
-The explorer shows this distinction per matrix type. Practical export should skip factorizations that increase storage and then measure the resulting model directly.
+Practical export should skip factorizations that increase storage and then measure the resulting model directly.
 
 ## 8. Interpretation and open questions
 
@@ -151,7 +151,7 @@ cd spectral-entropy-llm
 python scripts/build_results.py
 ```
 
-This rebuilds the explorer data, CSV table, and result index from archived JSON, without downloading a model or running an evaluation. Open the [hosted explorer](https://fumitoshi0524.github.io/spectral-entropy-llm/?lang=en) to inspect the results.
+This rebuilds the report summary, CSV table, and result index from archived JSON, without downloading a model or running an evaluation. Figures and tables in this report present the results directly.
 
 For new experiments, install `requirements.txt`, then use the explicit entropy entry point:
 
@@ -171,7 +171,6 @@ See [reproduction notes](docs/REPRODUCTION.md) for configuration provenance and 
 | `experiments/regularizer_selection.py` | Preliminary calibrated regularizer comparison |
 | `results/` | Archived numerical results |
 | `scripts/` | Data extraction, report tables, and figure rendering |
-| `demo/` | Bilingual static result explorer |
 | `legacy/cosine/` | Earlier cosine route, isolated from the entropy entry point |
 
 ## 10. Related work
@@ -186,7 +185,7 @@ See [reproduction notes](docs/REPRODUCTION.md) for configuration provenance and 
 
 chinese=fr'''# 谱熵正则化与语言模型的低秩截断
 
-[English report](README.md) · [交互结果页面](https://fumitoshi0524.github.io/spectral-entropy-llm/?lang=zh) · [原始结果](results/) · [截断数据表](docs/truncation.csv)
+[English report](README.md) · [原始结果](results/) · [截断数据表](docs/truncation.csv)
 
 ## 摘要
 
@@ -198,7 +197,7 @@ chinese=fr'''# 谱熵正则化与语言模型的低秩截断
 
 较低的稳定秩可以与较宽的奇异值谱尾部同时存在。因此，仅观察谱能量的集中，尚不能确定截断这些方向是否会造成明显的语言建模质量损失。本项目将训练过程中的谱测量，与谱熵正则化后的截断实验联系起来。
 
-研究包含三个环节：跟踪公开 Pythia 检查点的谱演化；比较谱熵与归一化核范数正则项；在三个模型规模上比较截断曲线，并考察对原模型主子空间的可选约束。[交互页面](https://fumitoshi0524.github.io/spectral-entropy-llm/?lang=zh)可以按模型规模与保留秩比例查看记录值。
+研究包含三个环节：跟踪公开 Pythia 检查点的谱演化；比较谱熵与归一化核范数正则项；在三个模型规模上比较截断曲线，并考察对原模型主子空间的可选约束。下文通过曲线和表格直接呈现不同模型规模与保留秩比例的测量结果。
 
 ## 2. 谱指标与目标函数
 
@@ -285,7 +284,7 @@ ER 表示当前归一化谱下的有效奇异分量数；SR 更强调平方谱�
 
 若后续真正保存两个低秩因子，$m\times n$ 权重的元素数会从 $mn$ 变为 $k(m+n)$。对方阵保留 60% 秩，因子元素数约为原矩阵的 **1.2 倍**；对 Pythia 四类目标矩阵统一使用 $k=0.6d$，总因子权重数约为这些矩阵原权重数的 **80%**，尚未包括 bias、嵌入、其他参数及元数据。这些是公式估算，不是实际模型文件测量。
 
-交互页面按矩阵类型显示这一差异。后续部署应跳过会增加存储的分解，并对真正导出的模型测量体积与性能。
+后续部署应跳过会增加存储的分解，并对真正导出的模型测量体积与性能。
 
 ## 8. 解释与尚未解决的问题
 
@@ -301,7 +300,7 @@ cd spectral-entropy-llm
 python scripts/build_results.py
 ```
 
-这个命令从原始 JSON 生成交互页数据、CSV 和结果索引，无需下载模型或运行评测。也可以直接打开[交互页面](https://fumitoshi0524.github.io/spectral-entropy-llm/?lang=zh)。
+这个命令从原始 JSON 生成报告汇总数据、CSV 和结果索引，无需下载模型或运行评测。研究结果直接呈现在本报告的曲线与表格中。
 
 新实验需要安装 `requirements.txt`，随后通过明确的谱熵入口运行：
 
@@ -321,7 +320,6 @@ python pipeline.py --experiment truncate --scale 160m --checkpoint runs/metrics/
 | `experiments/regularizer_selection.py` | 校准后的正则项选择预实验 |
 | `results/` | 历史数值记录 |
 | `scripts/` | 数据提取、报告表格与绘图 |
-| `demo/` | 中英文静态结果浏览器 |
 | `legacy/cosine/` | 与谱熵入口分开的早期余弦路线 |
 
 ## 10. 相关工作

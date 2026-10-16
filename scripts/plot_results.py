@@ -1,4 +1,4 @@
-"""Render report figures from the browser's derived archived data."""
+"""Render report figures from the report's derived archived data."""
 from pathlib import Path
 import json
 import matplotlib
@@ -6,7 +6,7 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 root=Path(__file__).resolve().parents[1]
-data=json.loads((root/'demo/data.json').read_text(encoding='utf-8'))
+data=json.loads((root/'docs/results-summary.json').read_text(encoding='utf-8'))
 colors={'naive':'#7d8794','activation':'#b67a36','entropy':'#247f7a','entropy_topk':'#6860a9','baseline':'#7d8794'}
 labels={'naive':'Naive SVD','activation':'Activation-aware','entropy':'Entropy','entropy_topk':'Entropy + top-k','baseline':'LM-only'}
 plt.rcParams.update({'font.size':10,'font.family':'DejaVu Sans','axes.spines.top':False,'axes.spines.right':False,'svg.fonttype':'path'})

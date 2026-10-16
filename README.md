@@ -1,6 +1,6 @@
 # Spectral Entropy for Low-Rank Language-Model Compression
 
-[中文报告](README_zh.md) · [Interactive results](https://fumitoshi0524.github.io/spectral-entropy-llm/?lang=en) · [Archived data](results/) · [Truncation table](docs/truncation.csv)
+[中文报告](README_zh.md) · [Archived data](results/) · [Truncation table](docs/truncation.csv)
 
 ## Abstract
 
@@ -12,7 +12,7 @@ This study examines whether concentrating the singular-value spectrum of pretrai
 
 A low stable rank can coexist with a broad singular-value tail. Consequently, energy concentration alone does not establish that a weight matrix can be truncated without a substantial language-modeling penalty. This project connects longitudinal spectral measurements with an intervention: minimize spectral entropy during adaptation, then measure the quality of rank-truncated weights.
 
-The study contains three components: spectral tracking across public Pythia checkpoints; comparison of entropy and normalized nuclear-norm regularization; and cross-scale truncation with optional alignment to the original model's leading subspace. The [result explorer](https://fumitoshi0524.github.io/spectral-entropy-llm/?lang=en) exposes the recorded points at each model scale and rank budget.
+The study contains three components: spectral tracking across public Pythia checkpoints; comparison of entropy and normalized nuclear-norm regularization; and cross-scale truncation with optional alignment to the original model's leading subspace. The figures and tables below present the measured cross-scale results.
 
 ## 2. Spectral metrics and objective
 
@@ -146,7 +146,7 @@ The current truncation code reconstructs $U_k\Sigma_kV_k^\top$ and writes it int
 
 If a future implementation stores two factors instead, an $m\times n$ weight requires $k(m+n)$ values rather than $mn$. For a square layer at 60% rank, factorization requires approximately **1.2×** its original weight count. Across the four Pythia target matrix shapes, factoring every target at the same $k=0.6d$ would require approximately **80% of their original weight values**, before biases, embeddings, other parameters, or metadata. These are algebraic estimates, not measured model-file reductions.
 
-The explorer shows this distinction per matrix type. Practical export should skip factorizations that increase storage and then measure the resulting model directly.
+Practical export should skip factorizations that increase storage and then measure the resulting model directly.
 
 ## 8. Interpretation and open questions
 
@@ -162,7 +162,7 @@ cd spectral-entropy-llm
 python scripts/build_results.py
 ```
 
-This rebuilds the explorer data, CSV table, and result index from archived JSON, without downloading a model or running an evaluation. Open the [hosted explorer](https://fumitoshi0524.github.io/spectral-entropy-llm/?lang=en) to inspect the results.
+This rebuilds the report summary, CSV table, and result index from archived JSON, without downloading a model or running an evaluation. Figures and tables in this report present the results directly.
 
 For new experiments, install `requirements.txt`, then use the explicit entropy entry point:
 
@@ -182,7 +182,6 @@ See [reproduction notes](docs/REPRODUCTION.md) for configuration provenance and 
 | `experiments/regularizer_selection.py` | Preliminary calibrated regularizer comparison |
 | `results/` | Archived numerical results |
 | `scripts/` | Data extraction, report tables, and figure rendering |
-| `demo/` | Bilingual static result explorer |
 | `legacy/cosine/` | Earlier cosine route, isolated from the entropy entry point |
 
 ## 10. Related work

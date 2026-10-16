@@ -2,7 +2,7 @@
 
 ## What is available
 
-The release contains historical numerical records, the available training and truncation implementation, restored entropy entry points, and a static result explorer. The adapted model weights were not retained after the original server was cleared. The `results/` files are preserved records; they are not outputs from a new run performed for this release.
+The release contains historical numerical records, the available training and truncation implementation, restored entropy entry points, and directly presented figures and tables. The adapted model weights were not retained after the original server was cleared. The `results/` files are preserved records; they are not outputs from a new run performed for this release.
 
 `source-manifest.json` maps original relative file names to released paths and records hashes of the source snapshot. `result-index.json` records the hashes and top-level schemas of the published result files. The restored entry point and documentation were added during release preparation; they are not represented as the exact original experiment launcher.
 
@@ -34,7 +34,7 @@ python scripts/write_reports.py
 python scripts/plot_results.py
 ```
 
-The first two commands use only Python's standard library. The third requires matplotlib. None loads a language model or runs an evaluation. The figure generator uses the same compact `demo/data.json` as the explorer. Raw measurements remain unchanged in `results/`.
+The first two commands use only Python's standard library. The third requires matplotlib. None loads a language model or runs an evaluation. The figure and report generators read the compact `docs/results-summary.json` derived from the archive. Raw measurements remain unchanged in `results/`.
 
 ## New entropy runs
 
@@ -76,7 +76,7 @@ The implementation computes centered input-activation covariance, adds diagonal 
 
 ## Deployment estimates
 
-The explorer's factor counts follow `k(m+n) / (mn)`. The displayed combined target ratio assumes all four Pythia target matrix types are factorized at the same rank. It excludes embeddings, normalization, biases, and metadata. No factorized exporter, measured memory reduction, or inference speed-up is claimed by this release.
+Factor-count estimates follow `k(m+n) / (mn)`. The combined target ratio assumes all four Pythia target matrix types are factorized at the same rank. It excludes embeddings, normalization, biases, and metadata. No factorized exporter, measured memory reduction, or inference speed-up is claimed by this release.
 
 ## Historical cosine route
 

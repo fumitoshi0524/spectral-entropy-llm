@@ -1,4 +1,4 @@
-"""Derive browser data and tables from archived JSON; no model dependencies."""
+"""Derive report data and tables from archived JSON; no model dependencies."""
 import csv
 import hashlib
 import json
@@ -47,7 +47,7 @@ def main():
         data['models'][scale]=model
     e0=read(Path('results/e0_v2/regularizer_comparison.json'))
     data['regularizers']={'config':e0['config'],'methods':{k:{'ppl_final':v['ppl_final'],'er_final':v['er_final'],'sr_final':v['sr_final'],'log':[stats(x) for x in v['log']]} for k,v in e0['results'].items()}}
-    (ROOT/'demo/data.json').write_text(json.dumps(data,ensure_ascii=False,allow_nan=False,separators=(',',':'))+'\n',encoding='utf-8')
+    (ROOT/'docs/results-summary.json').write_text(json.dumps(data,ensure_ascii=False,allow_nan=False,separators=(',',':'))+'\n',encoding='utf-8')
     with (ROOT/'docs/truncation.csv').open('w',encoding='utf-8',newline='') as f:
         writer=csv.DictWriter(f,fieldnames=list(csv_rows[0]));writer.writeheader();writer.writerows(csv_rows)
     index=[]
