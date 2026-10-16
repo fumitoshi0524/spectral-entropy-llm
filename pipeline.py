@@ -58,6 +58,10 @@ def main():
     else:model=load_model(args.scale,cfg,device=device,dtype=dtype);tok=load_tokenizer(args.scale,cfg)
     bs=1 if args.scale=='1.4b' else cfg.eval['batch_size']
     ev=cfg.eval
+    if args.experiment=='downstream':
+        from src.eval_downstream import evaluate_downstream
+        write_json(output/'downstream.json',evaluate_downstream(model,tok,['hellaswag','arc_easy','piqa'],0))
+        return
     eval_loader=build_dataloader(tok,'validation',ev['eval_samples'],ev['max_seq_length'],bs,cfg.seed)
     ppl_fn=lambda m,loader:evaluate_ppl(m,loader,ev['max_eval_batches'])
     if args.experiment=='train':
@@ -81,9 +85,6 @@ def main():
             try:rows.append({'fraction':fraction,'rank':rank,'ppl':ppl_fn(model,eval_loader)})
             finally:restore_all(model,backup)
         write_json(output/'post_trunc.json',{'checkpoint':str(args.checkpoint),'representation':'dense reconstructed truncated weights','results':rows})
-    else:
-        from src.eval_downstream import evaluate_downstream
-        write_json(output/'downstream.json',evaluate_downstream(model,tok,['hellaswag','arc_easy','piqa'],0))
 
 
 if __name__=='__main__':main()

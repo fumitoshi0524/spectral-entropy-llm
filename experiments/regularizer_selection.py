@@ -282,8 +282,13 @@ def train_one(model,train_loader,eval_loader,method,strength,label):
 # ── Main ──────────────────────────────────────────
 
 def main():
+    if (OUTPUT_DIR/"regularizer_comparison.json").exists() or any((OUTPUT_DIR/name/"checkpoint").exists() for name in ["baseline","entropy","nuclear"]):
+        raise FileExistsError("Choose a fresh OUTPUT_DIR for a new regularizer-comparison run.")
     torch.manual_seed(SEED); np.random.seed(SEED)
     model,tok=load_model()
+    def save_checkpoint(label):
+        model.save_pretrained(OUTPUT_DIR/label/"checkpoint")
+        tok.save_pretrained(OUTPUT_DIR/label/"checkpoint")
     ev_loader=build_dataloader("validation",EVAL_SAMPLES,tok,BATCH_SIZE)
     tr_loader=build_dataloader("train",TRAIN_SAMPLES,tok,BATCH_SIZE)
 
@@ -301,6 +306,7 @@ def main():
     logger.info("=== BASELINE ===")
     model.load_state_dict(dense_state)
     r=train_one(model,tr_loader,ev_loader,"entropy",0.0,"baseline")
+    save_checkpoint("baseline")
     r["trunc_curve"]={str(k):v for k,v in run_truncation_curve(model,ev_loader).items()}
     results["baseline"]=r
 
@@ -310,6 +316,7 @@ def main():
         logger.info("=== %s  strength=%.4f ===",label.upper(),s)
         model.load_state_dict(dense_state)
         r=train_one(model,tr_loader,ev_loader,method,s,label)
+        save_checkpoint(label)
         r["method"]=method; r["strength"]=s
         r["trunc_curve"]={str(k):v for k,v in run_truncation_curve(model,ev_loader).items()}
         results[label]=r

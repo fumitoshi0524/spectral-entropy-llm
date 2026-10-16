@@ -60,7 +60,7 @@ python experiments/regularizer_selection.py
 python pipeline.py --experiment downstream --scale 160m --checkpoint runs/metrics/160m/entropy/checkpoint
 ```
 
-The regularizer-selection script retains its standalone historical loop and writes to `runs/e0_v2/`. It has fixed configuration constants at its top. Both maintained entropy data loaders now require the requested C4 samples and fail if they cannot be loaded. The original loader could fall back to another corpus, and the archived records do not include complete dataset fingerprints for the old runs.
+The regularizer-selection script retains its standalone historical loop and writes to `runs/e0_v2/`. It has fixed configuration constants at its top and now saves a checkpoint for each variant before truncation. It rejects an already populated run directory; change `OUTPUT_DIR` for another run. Both maintained entropy data loaders now require the requested C4 samples and fail if they cannot be loaded. The original loader could fall back to another corpus, and the archived records do not include complete dataset fingerprints for the old runs.
 
 ### Numerical semantics
 
